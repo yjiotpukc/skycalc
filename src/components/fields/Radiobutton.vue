@@ -1,12 +1,28 @@
 <template>
   <div class="radio-control-group">
-    <div class="radio-control-group--label">{{ name }}</div>
+    <div class="radio-control-group--label">
+      {{ name }}
+    </div>
     <div class="radio-values">
-      <label v-for="possibleValue in possibleValues" :for="possibleValue.id" class="pure-radio">
-        <input type="radio" :id="possibleValue.id" :name="name" :value="possibleValue.value"
-               :checked="modelValue === possibleValue.value" @input="$emit('update:modelValue', $event.target.value)"/>
+      <label
+        v-for="possibleValue in possibleValues"
+        :key="possibleValue.id"
+        :for="possibleValue.id"
+        class="pure-radio"
+      >
+        <input
+          :id="possibleValue.id"
+          type="radio"
+          :name="name"
+          :value="possibleValue.value"
+          :checked="modelValue === possibleValue.value"
+          @input="$emit('update:modelValue', $event.target.value)"
+        >
         {{ possibleValue.label }}
-        <span v-if="possibleValue.description" class="description">{{ possibleValue.description }}</span>
+        <span
+          v-if="possibleValue.description"
+          class="description"
+        >{{ possibleValue.description }}</span>
       </label>
     </div>
   </div>
@@ -14,19 +30,19 @@
 
 <script setup lang="ts">
 defineProps<{
-  name: string,
-  modelValue: string,
+  name: string;
+  modelValue: string;
   possibleValues: {
-    id: string,
-    value: string,
-    label: string,
-    description?: string,
-  }[],
-  description?: string,
+    id: string;
+    value: string;
+    label: string;
+    description?: string;
+  }[];
+  description?: string;
 }>();
 
 defineEmits<{
-  (e: 'update:modelValue', value: string): void
+  (e: "update:modelValue", value: string): void;
 }>();
 </script>
 
@@ -41,7 +57,7 @@ defineEmits<{
 
 .radio-values {
   display: inline-block;
-  margin: -.5em 0;
+  margin: -0.5em 0;
 }
 
 .radio-values label {
@@ -49,8 +65,8 @@ defineEmits<{
 }
 
 .radio-values .description {
-  padding-left: .3em;
+  padding-left: 0.3em;
   color: #666;
-  font-size: .875em;
+  font-size: 0.875em;
 }
 </style>

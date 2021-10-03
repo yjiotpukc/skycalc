@@ -5,7 +5,12 @@ import MenuLink from "./components/MenuLink.vue";
 <template>
   <header class="header">
     <nav class="pure-menu pure-menu-horizontal">
-      <router-link to="/" class="pure-menu-heading pure-menu-link">Skycalc</router-link>
+      <router-link
+        to="/"
+        class="pure-menu-heading pure-menu-link"
+      >
+        Skycalc
+      </router-link>
       <ul class="pure-menu-list">
         <MenuLink to="/apparel" />
         <MenuLink to="/weapons" />
