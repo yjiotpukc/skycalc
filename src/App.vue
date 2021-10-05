@@ -25,9 +25,21 @@ import MenuLink from "./components/MenuLink.vue";
   <main class="main">
     <router-view />
   </main>
+
+  <footer class="footer">
+    Favicon was taken from <a href="https://icons8.com">https://icons8.com</a>
+  </footer>
 </template>
 
 <style>
+#app {
+  min-height: 100vh;
+  width: 100%;
+  position: absolute;
+  padding-bottom: 30px;
+  box-sizing: border-box;
+}
+
 .header {
   font-size: 1.25em;
   border-bottom: 1px solid #bbb;
@@ -47,5 +59,15 @@ import MenuLink from "./components/MenuLink.vue";
   color: #E6E6E6;
   margin: 0;
   padding: 1em 2em;
+}
+
+.footer {
+  position: absolute;
+  bottom: 0;
+  height: 30px;
+  width: 100%;
+  text-align: right;
+  padding: 0 2em;
+  box-sizing: border-box;
 }
 </style>
