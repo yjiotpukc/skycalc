@@ -5,7 +5,7 @@
       :id="id"
       type="text"
       :value="modelValue"
-      @input="$emit('update:modelValue', $event.target.value)"
+      @input="onInput"
     >
     <span
       v-if="description"
@@ -22,7 +22,19 @@ defineProps<{
   description?: string;
 }>();
 
-defineEmits<{
+const emit = defineEmits<{
   (e: "update:modelValue", value: string): void;
 }>();
+
+const onInput = (event: Event) => {
+  let value = null;
+  const target = event.target;
+  if (target && target instanceof HTMLInputElement) {
+    value = target.value;
+  }
+
+  if (value !== null) {
+    emit("update:modelValue", value);
+  }
+};
 </script>

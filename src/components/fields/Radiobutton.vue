@@ -16,7 +16,7 @@
           :name="name"
           :value="possibleValue.value"
           :checked="modelValue === possibleValue.value"
-          @input="$emit('update:modelValue', $event.target.value)"
+          @input="onInput"
         >
         {{ possibleValue.label }}
         <span
@@ -31,19 +31,31 @@
 <script setup lang="ts">
 defineProps<{
   name: string;
-  modelValue: string;
+  modelValue: string | number;
   possibleValues: {
     id: string;
-    value: string;
+    value: string | number;
     label: string;
     description?: string;
   }[];
   description?: string;
 }>();
 
-defineEmits<{
+const emit = defineEmits<{
   (e: "update:modelValue", value: string): void;
 }>();
+
+const onInput = (event: Event) => {
+  let value = null;
+  const target = event.target;
+  if (target && target instanceof HTMLInputElement) {
+    value = target.value;
+  }
+
+  if (value !== null) {
+    emit("update:modelValue", value);
+  }
+};
 </script>
 
 <style>
