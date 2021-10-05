@@ -1,3 +1,3 @@
 <template>
-  <h1>{{ $route.name }}. Coming Soon!</h1>
+  <h2>Coming Soon!</h2>
 </template>

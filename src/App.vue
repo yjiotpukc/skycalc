@@ -18,7 +18,13 @@ import MenuLink from "./components/MenuLink.vue";
     </nav>
   </header>
 
-  <router-view />
+  <h1 class="heading">
+    {{ $route.name }}
+  </h1>
+
+  <main class="main">
+    <router-view />
+  </main>
 </template>
 
 <style>
@@ -30,5 +36,16 @@ import MenuLink from "./components/MenuLink.vue";
 .pure-menu-heading {
   text-transform: none;
   font-weight: bold;
+}
+
+.main {
+  padding: 0 0 0 4em;
+}
+
+.heading {
+  background-color: #4d4d4d;
+  color: #E6E6E6;
+  margin: 0;
+  padding: 1em 2em;
 }
 </style>

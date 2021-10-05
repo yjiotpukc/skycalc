@@ -6,7 +6,7 @@ const routes: RouteRecordRaw[] = [
   {
     path: "/",
     component: Home,
-    name: "Home",
+    name: "Skycalc",
   },
   {
     path: "/apparel",
