@@ -57,7 +57,7 @@ defineEmits<{
 
 .radio-values {
   display: inline-block;
-  margin: -0.5em 0;
+  margin: -0.5em 0 0;
 }
 
 .radio-values label {
