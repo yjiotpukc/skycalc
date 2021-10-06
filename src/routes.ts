@@ -1,5 +1,6 @@
 import Home from "./views/Home.vue";
 import Apparel from "./views/Apparel.vue";
+import Weapons from "./views/Weapons.vue";
 import ComingSoon from "./views/ComingSoon.vue";
 import { RouteRecordRaw } from "vue-router";
 
@@ -16,7 +17,7 @@ const routes: RouteRecordRaw[] = [
   },
   {
     path: "/weapons",
-    component: ComingSoon,
+    component: Weapons,
     name: "Weapons",
   },
 ];

@@ -46,6 +46,12 @@
             name="Soul level"
             :possible-values="possibleSouls"
           />
+          <Radiobutton
+              v-model="elementalDestruction"
+              name="Elemental Destruction"
+              :possible-values="possibleElementalPerks"
+              description="Perks in Destruction skill tree"
+          />
         </fieldset>
       </form>
     </div>
@@ -56,7 +62,7 @@
 
         <h3>Enchantment Magnitude = {{ enchantmentMagnitude }}</h3>
 
-        <p>Floor(Enchantment Base Magnitude * Enchantment Multiplier)</p>
+        <p>FLOOR(FLOOR(Enchantment Base Magnitude * Enchantment Multiplier) * Elemental Destruction Multiplier)</p>
       </div>
 
       <div class="calculation-result--specifics">
@@ -65,8 +71,8 @@
         <h3>Enchantment Multiplier = {{ enchantmentMultiplier }}</h3>
 
         <p>
-          Skill Multiplier * Enchanter Perk Multiplier * Specific Perk Multiplier * Seeker of Sorcery
-          Multiplier * Potion Effect Multiplier * Soul Multiplier
+          Skill Multiplier * Enchanter Perk Multiplier * Specific Perk Multiplier * Seeker of Sorcery Multiplier
+          * Potion Effect Multiplier
         </p>
 
         <h3>Skill Multiplier = {{ skillMultiplier }}</h3>
@@ -87,7 +93,7 @@ import Radiobutton from "../components/fields/Radiobutton.vue";
 import Checkbox from "../components/fields/Checkbox.vue";
 import {computed, ref} from "vue";
 
-let baseMagnitude = ref('8');
+let baseMagnitude = ref('10');
 let baseSkill = ref('100');
 let enchanterPerkMultiplier = ref(2);
 let possibleEnchanterPerkLevels = [
@@ -155,13 +161,33 @@ let possibleSouls = [
   },
 ];
 
+let elementalDestruction = ref(2);
+let possibleElementalPerks = [
+  {
+    id: '0',
+    label: '0',
+    value: 0,
+  },
+  {
+    id: '1',
+    label: '1',
+    value: 1,
+  },
+  {
+    id: '2',
+    label: '2',
+    value: 2,
+  },
+];
+let elementalDestructionMultiplier = computed(() => elementalDestruction.value * 0.25 + 1);
+
 let skillLevel = computed(() => Number(baseSkill.value) + (ahzidalGenius.value ? 10 : 0));
 let skillMultiplier = computed(() => 1 + (skillLevel.value / 100 * (skillLevel.value / 100 - 0.14) / 3.4));
 let specificPerkMultiplier = computed(() => specificPerk.value ? 1.25 : 1);
 let seekerOfSorceryMultiplier = computed(() => seekerOfSorcery.value ? 1.1 : 1);
 let potionEffectMultiplier = computed(() => 1 + Number(potionEffectPercent.value) / 100);
-let enchantmentMultiplier = computed(() => soulMultiplier.value * skillMultiplier.value * enchanterPerkMultiplier.value * specificPerkMultiplier.value * seekerOfSorceryMultiplier.value * potionEffectMultiplier.value);
-let enchantmentMagnitude = computed(() => Math.floor(Number(baseMagnitude.value) * enchantmentMultiplier.value));
+let enchantmentMultiplier = computed(() => skillMultiplier.value * enchanterPerkMultiplier.value * specificPerkMultiplier.value * seekerOfSorceryMultiplier.value * potionEffectMultiplier.value);
+let enchantmentMagnitude = computed(() => Math.floor(Math.floor(Number(baseMagnitude.value) * enchantmentMultiplier.value)) * elementalDestructionMultiplier.value);
 </script>
 
 <style>
