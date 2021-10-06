@@ -20,6 +20,16 @@ const routes: RouteRecordRaw[] = [
     component: Weapons,
     name: "Weapons",
   },
+  {
+    path: "/potions",
+    component: ComingSoon,
+    name: "Potions",
+  },
+  {
+    path: "/gear",
+    component: ComingSoon,
+    name: "Full Gear",
+  },
 ];
 
 export default routes;
