@@ -14,6 +14,8 @@ import MenuLink from "./components/MenuLink.vue";
       <ul class="pure-menu-list">
         <MenuLink to="/apparel" />
         <MenuLink to="/weapons" />
+        <MenuLink to="/potions" />
+        <MenuLink to="/gear" />
       </ul>
     </nav>
   </header>
