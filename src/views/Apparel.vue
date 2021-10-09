@@ -85,81 +85,24 @@
 import TextField from "../components/fields/TextField.vue";
 import Radiobutton from "../components/fields/Radiobutton.vue";
 import Checkbox from "../components/fields/Checkbox.vue";
-import {computed, ref} from "vue";
+import {computed} from "vue";
+import {
+  baseMagnitude,
+  baseSkill,
+  enchanterPerkMultiplier,
+  possibleEnchanterPerkLevels,
+  specificPerk,
+  potionEffectPercent,
+  ahzidalGenius,
+  seekerOfSorcery,
+  soulMultiplier,
+  possibleSouls,
+  skillLevel,
+  skillMultiplier,
+  specificPerkMultiplier, seekerOfSorceryMultiplier, potionEffectMultiplier
+} from "../composables/enchanting";
 
-let baseMagnitude = ref('8');
-let baseSkill = ref('100');
-let enchanterPerkMultiplier = ref(2);
-let possibleEnchanterPerkLevels = [
-  {
-    id: 'enchanter-perk-level-0',
-    value: 1,
-    label: '0',
-  },
-  {
-    id: 'enchanter-perk-level-1',
-    value: 1.2,
-    label: '1',
-  },
-  {
-    id: 'enchanter-perk-level-2',
-    value: 1.4,
-    label: '2',
-  },
-  {
-    id: 'enchanter-perk-level-3',
-    value: 1.6,
-    label: '3',
-  },
-  {
-    id: 'enchanter-perk-level-4',
-    value: 1.8,
-    label: '4',
-  },
-  {
-    id: 'enchanter-perk-level-5',
-    value: 2,
-    label: '5',
-  },
-];
-let specificPerk = ref(true);
-let potionEffectPercent = ref('44');
-let ahzidalGenius = ref(true);
-let seekerOfSorcery = ref(true);
-let soulMultiplier = ref(1);
-let possibleSouls = [
-  {
-    id: 'petty',
-    label: 'Petty',
-    value: 1 / 12,
-  },
-  {
-    id: 'lesser',
-    label: 'Lesser',
-    value: 1 / 6,
-  },
-  {
-    id: 'common',
-    label: 'Common',
-    value: 1 / 3,
-  },
-  {
-    id: 'greater',
-    label: 'Greater',
-    value: 2 / 3,
-  },
-  {
-    id: 'grand',
-    label: 'Grand',
-    value: 1,
-  },
-];
-
-let skillLevel = computed(() => Number(baseSkill.value) + (ahzidalGenius.value ? 10 : 0));
-let skillMultiplier = computed(() => 1 + (skillLevel.value / 100 * (skillLevel.value / 100 - 0.14) / 3.4));
-let specificPerkMultiplier = computed(() => specificPerk.value ? 1.25 : 1);
-let seekerOfSorceryMultiplier = computed(() => seekerOfSorcery.value ? 1.1 : 1);
-let potionEffectMultiplier = computed(() => 1 + Number(potionEffectPercent.value) / 100);
+baseMagnitude.value = '8';
 let enchantmentMultiplier = computed(() => soulMultiplier.value * skillMultiplier.value * enchanterPerkMultiplier.value * specificPerkMultiplier.value * seekerOfSorceryMultiplier.value * potionEffectMultiplier.value);
 let enchantmentMagnitude = computed(() => Math.floor(Number(baseMagnitude.value) * enchantmentMultiplier.value));
 </script>
