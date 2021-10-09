@@ -4,6 +4,11 @@
       <h2>Variables</h2>
       <form class="pure-form pure-form-aligned">
         <fieldset>
+          <Checkbox
+            id="unofficial-patch"
+            v-model="unofficialPatch"
+            name="Unofficial Patch"
+          />
           <TextField
             id="enchantment-base-magnitude"
             v-model="baseMagnitude"
@@ -88,6 +93,7 @@ import Radiobutton from "../components/fields/Radiobutton.vue";
 import Checkbox from "../components/fields/Checkbox.vue";
 import {computed, ref} from "vue";
 import {
+  unofficialPatch,
   baseMagnitude,
   baseSkill,
   enchanterPerkMultiplier,
@@ -98,9 +104,7 @@ import {
   seekerOfSorcery,
   skillLevel,
   skillMultiplier,
-  specificPerkMultiplier,
-  seekerOfSorceryMultiplier,
-  potionEffectMultiplier,
+  commonEnchantmentMultiplier,
 } from "../composables/enchanting";
 
 baseMagnitude.value = '10';
@@ -124,7 +128,7 @@ let possibleElementalPerks = [
   },
 ];
 let elementalDestructionMultiplier = computed(() => elementalDestruction.value * 0.25 + 1);
-let enchantmentMultiplier = computed(() => skillMultiplier.value * enchanterPerkMultiplier.value * specificPerkMultiplier.value * seekerOfSorceryMultiplier.value * potionEffectMultiplier.value);
+let enchantmentMultiplier = commonEnchantmentMultiplier;
 let enchantmentMagnitude = computed(() => Math.floor(Math.floor(Number(baseMagnitude.value) * enchantmentMultiplier.value)) * elementalDestructionMultiplier.value);
 </script>
 

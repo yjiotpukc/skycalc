@@ -1,5 +1,6 @@
 import {computed, ref} from "vue";
 
+export const unofficialPatch = ref(true);
 export const baseMagnitude = ref('0');
 export const baseSkill = ref('100');
 export const enchanterPerkMultiplier = ref(2);
@@ -68,9 +69,23 @@ export const possibleSouls = [
     },
 ];
 
+export const potionEffectMultiplier = computed(() => 1 + Number(potionEffectPercent.value) / 100);
 export const skillLevel = computed(() => Number(baseSkill.value) + (ahzidalGenius.value ? 10 : 0));
-export const skillMultiplier = computed(() => 1 + (skillLevel.value / 100 * (skillLevel.value / 100 - 0.14) / 3.4));
+export const skillMultiplier = computed(() => {
+    let skillModifier = skillLevel.value / 100;
+    if (!unofficialPatch.value) {
+        skillModifier *= potionEffectMultiplier.value;
+    }
+
+    return 1 + (skillModifier * (skillModifier - 0.14) / 3.4)
+});
 export const specificPerkMultiplier = computed(() => specificPerk.value ? 1.25 : 1);
 export const seekerOfSorceryMultiplier = computed(() => seekerOfSorcery.value ? 1.1 : 1);
-export const potionEffectMultiplier = computed(() => 1 + Number(potionEffectPercent.value) / 100);
+export const commonEnchantmentMultiplier = computed(() => {
+    let multiplier = skillMultiplier.value * enchanterPerkMultiplier.value * specificPerkMultiplier.value * seekerOfSorceryMultiplier.value;
+    if (unofficialPatch.value) {
+        multiplier *= potionEffectMultiplier.value;
+    }
 
+    return multiplier;
+});
